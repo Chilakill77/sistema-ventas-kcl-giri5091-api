@@ -1,39 +1,30 @@
-import { Body, Controller, HttpStatus, UnauthorizedException } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { UtilsService } from 'src/shared/service/utils/utils.service';
-import { AuthDto } from 'src/shared/dto/auth.dto';
-import { throwDeprecation } from 'process';
+
+class LoginDto {
+  username: string;
+  password: string;
+}
+
+class RegisterDto {
+  nombre: string;
+  apellidos: string;
+  correo: string;
+  username: string;
+  password: string;
+}
 
 @Controller('auth')
 export class AuthController {
+  constructor(private readonly authSvc: AuthService) {}
 
-    constructor(private authSvc: AuthService,
-        private utilsSvc: UtilsService){}
+  @Post('register')
+  async register(@Body() dto: RegisterDto) {
+    return this.authSvc.register(dto);
+  }
 
-    @post()
-    @HttpCode(HttpStatus.OK){
-    async iniciarSesion(@Body () data: AuthDto) {
-
-        const { username, passwd } = data;
-
-        const usuario = await this.authSvc.obtenerUsuario(username);
-
-        if(!usuario){
-            throw new UnauthorizedException('El usuario y/o contraseña es incorrecto');
-        }
-
-        if (await this.utilsSvc.checkPassword(password, usuario.password)){
-
-            const { password, fechaRegistro, ...payload } = usuario;
-            const jwt = await this.utilsSvc.generateJWT(payload);
-
-        } else {
-            throw new UnauthorizedException('El usuario y/o contraseña es incorrecto')
-        }
-
-
-    }
-
-    }
-    
+  @Post('login')
+  async login(@Body() { username, password }: LoginDto) {
+    return this.authSvc.login(username, password);
+  }
 }

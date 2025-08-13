@@ -2,7 +2,6 @@ import { Controller, Get, Post, Put, Delete, Body, UsePipes, ValidationPipe, Par
 import { UsuariosService } from './usuarios.service';
 import { CreateUsuarioDto } from './dto/create-usuario.dto';
 import { UtilsService } from 'src/shared/service/utils/utils.service';
-import { pipe } from 'rxjs';
 import { AuthGuard } from 'src/shared/guards/auth/auth.guard';
 
 @Controller('usuarios')

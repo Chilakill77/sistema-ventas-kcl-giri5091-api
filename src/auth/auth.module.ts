@@ -1,30 +1,24 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Module } from '@nestjs/common';
+import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
 
-class LoginDto {
-  username: string;
-  password: string;
-}
+// Módulo global que exporta PrismaService (ver más abajo)
+import { PrismaModule } from 'src/prisma/prisma.module';
 
-class RegisterDto {
-  nombre: string;
-  apellidos: string;
-  correo: string;
-  username: string;
-  password: string;
-}
-
-@Controller('auth')
-export class AuthController {
-  constructor(private readonly authSvc: AuthService) {}
-
-  @Post('register')
-  async register(@Body() dto: RegisterDto) {
-    return this.authSvc.register(dto);
-  }
-
-  @Post('login')
-  async login(@Body() { username, password }: LoginDto) {
-    return this.authSvc.login(username, password);
-  }
-}
+// src/auth/auth.module.ts
+@Module({
+  imports: [
+    PrismaModule,
+    PassportModule,
+    JwtModule.register({
+      secret: process.env.JWT_SECRET || 'mi-secreto',
+      signOptions: { expiresIn: '1h' }
+    }),
+  ],
+  providers: [AuthService],
+  controllers: [AuthController],
+  exports: [AuthService, JwtModule], // ← ¡aquí!
+})
+export class AuthModule {}
