@@ -2,7 +2,7 @@ import { Module } from "@nestjs/common";
 import { UsuariosController } from './usuarios.controller';
 import { UsuariosService } from './usuarios.service';
 import { PrismaService } from "src/prisma.service";
-import { UtilsService } from "src/shared/services/utils.service";
+import { UtilsService } from 'src/shared/service/utils/utils.service';
 import { JwtService } from "@nestjs/jwt";
 
 @Module({

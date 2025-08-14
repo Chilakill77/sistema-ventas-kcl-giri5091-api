@@ -1,41 +1,30 @@
-import {IsEmail, IsNotEmpty, IsString, MaxLength } from "class-validator";
+import { IsEmail, IsNotEmpty, IsString, MaxLength, MinLength } from "class-validator";
 
-export class CreateUsuarioDto {
+export class CreateUsuarioDto{
 
-    @IsEmail ()
-    @IsNotEmpty ()
     @IsString ()
-    @MaxLength ()
+    @IsNotEmpty ()
+    @MaxLength (150)
+    @MinLength (3)
     nombre: string;
-    
-    @IsEmail ()
-    @IsNotEmpty ()
+
     @IsString ()
-    @MaxLength ()
+    @IsNotEmpty ()
+    @MaxLength (250)
+    @MinLength (3)
     apellidos: string;
 
     @IsEmail ()
-    @IsNotEmpty ()
-    @IsString ()
-    @MaxLength ()
     correo: string;
-
-    @IsEmail ()
-    @IsNotEmpty ()
-    @IsString ()
-    @MaxLength ()
-    usuario: string;
-
-    @IsEmail ()
-    @IsNotEmpty ()
-    @IsString ()
-    @MaxLength ()
-    password: string;
-
-
-
-
-
     
+    @IsString ()
+    @IsNotEmpty ()
+    @MaxLength (100)
+    @MinLength (3)
+    username: string;
 
+    @IsString ()
+    @IsNotEmpty ()
+    @MinLength (3)
+    password: string;
 }
