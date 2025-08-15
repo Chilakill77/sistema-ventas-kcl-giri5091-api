@@ -39,4 +39,4 @@ jobs:
           with:
             context: .
             push: true
-            tags: chilakill66/nestjs-api:latest
+            tags: chilakill77/nestjs-api:latest

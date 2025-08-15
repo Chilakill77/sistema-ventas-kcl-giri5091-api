@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
@@ -14,12 +8,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Usuario {
+model usuario {
   cveUsuario    Int      @id @default(autoincrement())
   nombre        String
   apellidos     String
-  correo        String   @unique
-  username      String   @unique
+  correo        String   @unique(map: "Usuario_correo_key")
+  username      String   @unique(map: "Usuario_username_key")
   password      String
   fechaRegistro DateTime @default(now())
 }

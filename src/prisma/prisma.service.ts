@@ -1,5 +1,5 @@
 import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from 'generated/prisma';
 
 @Injectable()
 export class PrismaService
@@ -9,14 +9,8 @@ export class PrismaService
   async onModuleInit() {
     await this.$connect();
   }
-  $connect() {
-    throw new Error('Method not implemented.');
-  }
 
   async onModuleDestroy() {
     await this.$disconnect();
-  }
-  $disconnect() {
-    throw new Error('Method not implemented.');
   }
 }
