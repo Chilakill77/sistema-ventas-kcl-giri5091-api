@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package*.json prisma/ ./
 RUN npm ci
 
-
+# Generar el cliente de Prisma
 ARG DATABASE_URL
 ENV DATABASE_URL=$DATABASE_URL
 RUN npx prisma generate
@@ -26,4 +26,4 @@ RUN npm ci --omit=dev
 
 EXPOSE 3000
 
-CMD ["node", "dist/main"]
+CMD [ "node", "dist/main" ]
